@@ -11,27 +11,30 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       
-    - name: Build Web_2.0 Solution
-      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
+    - name: Build and Deploy Web_2.0 Solution
+      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=LocalDeploy /p:PublishUrl=C:\inetpub\wwwroot\web_2_0\ 
       
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: web_2_0_artifact
-        path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
-        retention-days: 1
-        
-  deploy-to-local:
-    runs-on: self-hosted
-    needs: deploy-web-2-0
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: web_2_0_artifact
-          path: ./downloaded_artifact
-
-      - name: Deploy to Local IIS Directory
-        run: |
-          Remove-Item -Path C:\inetpub\wwwroot\web_2_0\* -Recurse -Force
-          Copy-Item -Path ./downloaded_artifact/* -Destination C:\inetpub\wwwroot\web_2_0\ -Recurse -Force      
+#    - name: Build Web_2.0 Solution
+#      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
+#      
+#    - name: Upload Artifact
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: web_2_0_artifact
+#        path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
+#        retention-days: 1
+#        
+#  deploy-to-local:
+#    runs-on: self-hosted
+#    needs: deploy-web-2-0
+#    steps:
+#      - name: Download Artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: web_2_0_artifact
+#          path: ./downloaded_artifact
+#
+#      - name: Deploy to Local IIS Directory
+#        run: |
+#          Remove-Item -Path C:\inetpub\wwwroot\web_2_0\* -Recurse -Force
+#          Copy-Item -Path ./downloaded_artifact/* -Destination C:\inetpub\wwwroot\web_2_0\ -Recurse -Force      
