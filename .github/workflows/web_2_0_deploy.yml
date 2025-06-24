@@ -13,7 +13,7 @@ jobs:
     - name: Build Web_2.0 Solution
       run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release
     - name: Deploy to Local IIS
-      run: "C:\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe" -verb:sync -source:contentPath="code/Web_2.0" -dest:contentPath="IIS://localhost/w3svc/1",ComputerName="localhost" -allowUntrusted
+      run: "C:\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe -verb:sync -source:contentPath='code/Web_2.0' -dest:contentPath='IIS://localhost/w3svc/1',ComputerName='localhost' -allowUntrusted" 
       env:
         MSDeployPath: "C:\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe" # Adjust path as needed
         
