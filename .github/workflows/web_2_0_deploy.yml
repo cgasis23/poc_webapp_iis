@@ -10,9 +10,18 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
+      
     - name: Build Web_2.0 Solution
-      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release
-    - name: Deploy to Local IIS
-      run: "msdeploy -verb:sync -source:contentPath=\"code/Web_2.0\" -dest:contentPath=C:\\inetpub\\wwwroot\\web_2_0\\"
-      env:
-        MSDeployPath: "C:\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe" # Adjust path as needed
+      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
+      
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: web_2_0_artifact
+        path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
+        retention-days: 1
+    
+    #- name: Deploy to Local IIS
+    #  run: "msdeploy -verb:sync -source:contentPath=\"code/Web_2.0\" -dest:contentPath=C:\\inetpub\\wwwroot\\web_2_0\\"
+    #  env:
+    #    MSDeployPath: "C:\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe" # Adjust path as needed
