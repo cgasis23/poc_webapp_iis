@@ -14,6 +14,8 @@ jobs:
         
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: '[16.11.6)'
         
       - name: Build Project
         run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=LocalDeploy /p:PublishUrl=C:\inetpub\wwwroot\web_2_0\
