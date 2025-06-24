@@ -18,6 +18,12 @@ jobs:
           vs-version: '4.0'
           vs-prerelease: true
           
+      - name: Setup Nuget
+        uses: NuGet/setup-nuget@v2
+        
+      - name: Restore NuGet Packages
+        run: nuget restore code/Web_2_0/Web_2_0.sln
+          
       - name: Build Project
         run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=LocalDeploy /p:PublishUrl=C:\inetpub\wwwroot\web_2_0\
     
