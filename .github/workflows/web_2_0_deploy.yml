@@ -6,6 +6,18 @@ on:
       - master
 
 jobs:
+  build-web-2-2:
+    runs-on: windows-latest
+    steps:
+      - name: Check out Website
+        uses: actions/checkout@v3
+        
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1.0
+        
+      - name: Build Project
+        run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=LocalDeploy /p:PublishUrl=C:\inetpub\wwwroot\web_2_0\
+    
   deploy-web-2-0:
     runs-on: self-hosted
     steps:
@@ -14,15 +26,15 @@ jobs:
     #- name: Build and Deploy Web_2.0 Solution
     #  run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=LocalDeploy /p:PublishUrl=C:\inetpub\wwwroot\web_2_0\ 
       
-    - name: Build Web_2.0 Solution
-      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: web_2_0_artifact
-        path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
-        retention-days: 7 
+#    - name: Build Web_2.0 Solution
+#      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
+#
+#    - name: Upload Artifact
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: web_2_0_artifact
+#        path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
+#        retention-days: 7 
 #        
 #  deploy-to-local:
 #    runs-on: self-hosted
