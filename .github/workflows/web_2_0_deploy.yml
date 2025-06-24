@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  deploy-web-2.0:
+  deploy-web-2-0:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
