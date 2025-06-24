@@ -13,7 +13,8 @@ jobs:
     - uses: actions/checkout@v3
       
     - name: Build and Deploy Web_2.0 Solution
-      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="code/Web_2_0/Web_2_0/bin/" /p:WebProjectOutputDir=C:\inetpub\wwwroot\web_2_0\
+#      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="code/Web_2_0/Web_2_0/bin/" /p:WebProjectOutputDir=C:\inetpub\wwwroot\web_2_0\
+      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="code/Web_2_0/Web_2_0/bin/" /p:WebProjectOutputDir=C:\agent\actions-runner\_work\poc_webapp_iis\poc_webapp_iis\code\Web_2_0\Web_2_0\obj\Release\
       
 #    - name: Build Web_2.0 Solution
 #      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
