@@ -20,8 +20,18 @@ jobs:
         name: web_2_0_artifact
         path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
         retention-days: 1
-    
-    #- name: Deploy to Local IIS
-    #  run: "msdeploy -verb:sync -source:contentPath=\"code/Web_2.0\" -dest:contentPath=C:\\inetpub\\wwwroot\\web_2_0\\"
-    #  env:
-    #    MSDeployPath: "C:\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe" # Adjust path as needed
+        
+  deploy-to-local:
+    runs-on: self-hosted
+    needs: deploy-web-2-0
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web_2_0_artifact
+          path: ./downloaded_artifact
+
+      - name: Deploy to Local IIS Directory
+        run: |
+          Remove-Item -Path C:\inetpub\wwwroot\web_2_0\* -Recurse -Force
+          Copy-Item -Path ./downloaded_artifact/* -Destination C:\inetpub\wwwroot\web_2_0\ -Recurse -Force      
