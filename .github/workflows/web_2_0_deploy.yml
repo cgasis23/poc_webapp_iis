@@ -15,6 +15,11 @@ jobs:
     - name: Build Solution
       run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="C:\Output\" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true
 
+    - name: Zip Build Output
+      run: |
+        Compress-Archive -Path "C:\Output\*" -DestinationPath "C:\Output\Web_2_0_Package.zip" -Force
+      shell: powershell
+
     - name: Deploy to IIS
       run: |
         $msdeploy = "C:\Program Files (x86)\IIS\Microsoft Web Deploy V3\msdeploy.exe"
