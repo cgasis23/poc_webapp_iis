@@ -12,31 +12,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       
-    - name: Build and Deploy Web_2.0 Solution
-#      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="code/Web_2_0/Web_2_0/bin/" /p:WebProjectOutputDir=C:\inetpub\wwwroot\web_2_0\
-      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="code/Web_2_0/Web_2_0/bin/" /p:WebProjectOutputDir=C:\agent\actions-runner\_work\poc_webapp_iis\poc_webapp_iis\code\Web_2_0\Web_2_0\obj\Release\
-      
-#    - name: Build Web_2.0 Solution
-#      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /p:DeployOnBuild=true
-#
-#    - name: Upload Artifact
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: web_2_0_artifact
-#        path: .\poc_web_app_iis\code\Web_2_0\bin\Release\
-#        retention-days: 7 
-#        
-#  deploy-to-local:
-#    runs-on: self-hosted
-#    needs: deploy-web-2-0
-#    steps:
-#      - name: Download Artifact
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: web_2_0_artifact
-#          path: ./downloaded_artifact
-#
-#      - name: Deploy to Local IIS Directory
-#        run: |
-#          Remove-Item -Path C:\inetpub\wwwroot\web_2_0\* -Recurse -Force
-#          Copy-Item -Path ./downloaded_artifact/* -Destination C:\inetpub\wwwroot\web_2_0\ -Recurse -Force      
+    - name: Build Solution
+      run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="C:\Output\" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true
