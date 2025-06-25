@@ -15,12 +15,18 @@ jobs:
     - name: Build Solution
       run: msbuild code/Web_2_0/Web_2_0/Web_2_0.csproj /p:Configuration=Release /t:Build /p:OutDir="C:\Output\" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true
 
-    - name: Zip Build Output
-      run: |
-        Compress-Archive -Path "C:\Output\*" -DestinationPath "C:\Output\Web_2_0_Package.zip" -Force
-      shell: powershell
-
     - name: Deploy to IIS
       run: |
-        $msdeploy = "C:\Program Files (x86)\IIS\Microsoft Web Deploy V3\msdeploy.exe"
-        & $msdeploy -verb:sync -source:package='C:\Output\Web_2_0_Package.zip' -dest:auto,computerName='localhost',includeAcls='False' -setParam:name=`'IIS Web Application Name`',value=`'Default Web Site/web_2_0`' -allowUntrusted -enableRule:AppOffline
+        iisreset /stop
+        Copy-Item C:/Output C:/inetpub/wwwroot/web_2_0 -Recurse -Force
+        iisreset /start
+
+#    - name: Zip Build Output
+#      run: |
+#        Compress-Archive -Path "C:\Output\*" -DestinationPath "C:\Output\Web_2_0_Package.zip" -Force
+#      shell: powershell
+
+#    - name: Deploy to IIS
+#      run: |
+#        $msdeploy = "C:\Program Files (x86)\IIS\Microsoft Web Deploy V3\msdeploy.exe"
+#        & $msdeploy -verb:sync -source:package='C:\Output\Web_2_0_Package.zip' -dest:auto,computerName='localhost',includeAcls='False' -setParam:name=`'IIS Web Application Name`',value=`'Default Web Site/web_2_0`' -allowUntrusted -enableRule:AppOffline
