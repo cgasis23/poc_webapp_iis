@@ -23,4 +23,4 @@ jobs:
     - name: Deploy to IIS
       run: |
         $msdeploy = "C:\Program Files (x86)\IIS\Microsoft Web Deploy V3\msdeploy.exe"
-        & $msdeploy -verb:sync -source:package='C:\Output\Web_2_0_Package.zip' -dest:auto,computerName='localhost',includeAcls='False' -setParam:name=`'IIS Web Application Name`',value='Default Web Site/web_2_0' -allowUntrusted -enableRule:AppOffline
+        & $msdeploy -verb:sync -source:package='C:\Output\Web_2_0_Package.zip' -dest:auto,computerName='localhost',includeAcls='False' -setParam:name=`'IIS Web Application Name`',value=`'Default Web Site/web_2_0`' -allowUntrusted -enableRule:AppOffline
